@@ -1,0 +1,232 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Atomic Element Calculator</title>
+    <style>
+        /* Your CSS styles (modify as needed) */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        h1 {
+            color: #0077b6;
+        }
+
+        #elementInfo {
+            margin: 20px;
+            padding: 10px;
+            border: 1px solid #0077b6;
+            border-radius: 5px;
+        }
+
+        
+    </style>
+</head>
+<body>
+    <h1>Atomic Element Calculator</h1>
+    <p>Enter the atomic number of the element:</p>
+    <input type="number" id="atomicNumber" min="1" max="118">
+    <button onclick="calculateElementInfo()">Calculate</button>
+    <br><br>
+    <div id="elementInfo">
+        <p><strong>Element Symbol:</strong> <span id="elementSymbol"></span></p>
+        <p><strong>Element Name:</strong> <span id="elementName"></span></p>
+        <p><strong>Number of Electrons:</strong> <span id="numElectrons"></span></p>
+        <p><strong>Number of Protons:</strong> <span id="numProtons"></span></p>
+        <p><strong>Number of Neutrons:</strong> <span id="numNeutrons"></span></p>
+        <p><strong>Atomic Mass:</strong> <span id="atomicMass"></span></p>
+        <a href= file:///C:/Users/HARI/OneDrive/Desktop/atomic%20model/Body.html> 3D Model of Element</a>
+    </div>
+    <div class="atom">
+        <!-- Electron elements will be added here -->
+    </div>
+
+    <script>
+        function calculateElementInfo() {
+            const atomicNumberInput = document.getElementById("atomicNumber");
+            const elementSymbolSpan = document.getElementById("elementSymbol");
+            const elementNameSpan = document.getElementById("elementName");
+            const numElectronsSpan = document.getElementById("numElectrons");
+            const numProtonsSpan = document.getElementById("numProtons");
+            const numNeutronsSpan = document.getElementById("numNeutrons");
+            const atomicMassSpan = document.getElementById("atomicMass");
+            const atom = document.querySelector(".atom");
+
+            const atomicNumber = parseInt(atomicNumberInput.value);
+
+            // You can add more elements as needed
+            const elements = [
+                { atomicNumber: 1, symbol: "H", name: "Hydrogen", electrons: 1, protons: 1, neutrons: 0, atomicMass: 1.008 },
+                { atomicNumber: 2, symbol: "He", name: "Helium", electrons: 2, protons: 2, neutrons: 2, atomicMass: 4.0026 },
+                { atomicNumber: 3, symbol: "Li", name: "Lithium", electrons: 3, protons: 3, neutrons: 4, atomicMass: 6.941 },
+                { atomicNumber: 4, symbol: "Be", name: "Beryllium", electrons: 4, protons: 4, neutrons: 5, atomicMass: 9.0122 },
+                { atomicNumber: 5, symbol: "B", name: "Boron", electrons: 5, protons: 5, neutrons: 6, atomicMass: 10.811 },
+                { atomicNumber: 6, symbol: "C", name: "Carbon", electrons: 6, protons: 6, neutrons: 6, atomicMass: 12.0107 },
+                { atomicNumber: 7, symbol: "N", name: "Nitrogen", electrons: 7, protons: 7, neutrons: 7, atomicMass: 14.0067 },
+                { atomicNumber: 8, symbol: "O", name: "Oxygen", electrons: 8, protons: 8, neutrons: 8, atomicMass: 15.994 },
+                { atomicNumber: 9, symbol: "F", name: "Fluorine", electrons: 9, protons: 9, neutrons: 10, atomicMass: 18.9984 },
+                { atomicNumber: 10, symbol: "Ne", name: "Neon", electrons: 10, protons: 10, neutrons: 10, atomicMass: 20.1797 },
+                { atomicNumber: 11, symbol: "Na", name: "Sodium", electrons: 11, protons: 11, neutrons: 12, atomicMass: 22.9897 },
+                { atomicNumber: 12, symbol: "Mg", name: "Magnesium", electrons: 12, protons: 12, neutrons: 12, atomicMass: 24.305 },
+                { atomicNumber: 13, symbol: "Al", name: "Aluminium", electrons: 13, protons: 13, neutrons: 14, atomicMass: 26.9815 },
+                { atomicNumber: 14, symbol: "Si", name: "Silicon", electrons: 14, protons: 14, neutrons: 14, atomicMass: 28.0855 },
+                { atomicNumber: 15, symbol: "P", name: "Phosphorus", electrons: 15, protons: 15, neutrons: 16, atomicMass: 30.9738 },
+                { atomicNumber: 16, symbol: "S", name: "Silicon", electrons: 16, protons: 16, neutrons: 16, atomicMass: 32.065 },
+                { atomicNumber: 17, symbol: "Cl", name: "Chlorine", electrons: 17, protons: 17, neutrons: 18, atomicMass: 35.453 },
+                { atomicNumber: 18, symbol: "Ar", name: "Argon", electrons: 18, protons: 18, neutrons: 22, atomicMass: 39.948 },
+                { atomicNumber: 19, symbol: "K", name: "Potassium", electrons: 19, protons: 19, neutrons: 20, atomicMass: 39.0983 },
+                { atomicNumber: 20, symbol: "Ca", name: "Calcium", electrons: 20, protons: 20, neutrons: 20, atomicMass: 40.078 },
+                { atomicNumber: 21, symbol: "Sc", name: "Scandium", electrons: 21, protons: 21, neutrons: 24, atomicMass: 44.9559 },
+                { atomicNumber: 22, symbol: "Ti", name: "Titanium", electrons: 22, protons: 22, neutrons: 26, atomicMass: 47.867 },
+                { atomicNumber: 23, symbol: "V", name: "Vanadium", electrons: 23, protons: 23, neutrons: 28, atomicMass: 50.9415 },
+                { atomicNumber: 24, symbol: "Cr", name: "Chromium", electrons: 24, protons: 24, neutrons: 28, atomicMass: 51.9961 },
+                { atomicNumber: 25, symbol: "Mn", name: "Manganese", electrons: 25, protons: 25, neutrons: 30, atomicMass: 54.938 },
+                { atomicNumber: 26, symbol: "Fe", name: "Iron", electrons: 26, protons: 26, neutrons: 30, atomicMass: 55.845 },
+                { atomicNumber: 27, symbol: "Co", name: "Cobalt", electrons: 27, protons: 27, neutrons: 32, atomicMass: 58.933 },
+                { atomicNumber: 28, symbol: "Ni", name: "Nickel", electrons: 28, protons: 28, neutrons: 31, atomicMass: 58.693 },
+                { atomicNumber: 29, symbol: "Cu", name: "Copper", electrons: 29, protons: 29, neutrons: 35, atomicMass: 63.546 },
+                { atomicNumber: 30, symbol: "Zn", name: "Zinc", electrons: 30, protons: 30, neutrons: 35, atomicMass: 65.38 },
+                { atomicNumber: 31, symbol: "Ga", name: "Gallium", electrons: 31, protons: 31, neutrons: 39, atomicMass: 69.723 },
+                { atomicNumber: 32, symbol: "Ge", name: "Germanium", electrons: 32, protons: 32, neutrons: 41, atomicMass: 72.630 },
+                { atomicNumber: 33, symbol: "As", name: "Arsenic", electrons: 33, protons: 33, neutrons: 42, atomicMass: 74.922 },
+                { atomicNumber: 34, symbol: "Se", name: "Selenium", electrons: 34, protons: 34, neutrons: 45, atomicMass: 78.971 },
+                { atomicNumber: 35, symbol: "Br", name: "Bromine", electrons: 35, protons: 35, neutrons: 45, atomicMass: 79.904 },
+                { atomicNumber: 36, symbol: "Kr", name: "Krypton", electrons: 36, protons: 36, neutrons: 48, atomicMass: 83.798 },
+                { atomicNumber: 37, symbol: "Rb", name: "Rubidium", electrons: 37, protons: 37, neutrons: 48, atomicMass: 85.4678 },
+                { atomicNumber: 38, symbol: "Sr", name: "Strontium", electrons: 38, protons: 38, neutrons: 50, atomicMass: 87.62 },
+                { atomicNumber: 39, symbol: "Y", name: "Yttrium", electrons: 39, protons: 39, neutrons: 50, atomicMass: 88.90584 },
+                { atomicNumber: 40, symbol: "Zr", name: "Zirconium", electrons: 40, protons: 40, neutrons: 51, atomicMass: 91.224 },
+                { atomicNumber: 41, symbol: "Nb", name: "Niobium", electrons: 41, protons: 41, neutrons: 52, atomicMass: 92.90638 },
+                { atomicNumber: 42, symbol: "Mo", name: "Molybdenum", electrons: 42, protons: 42, neutrons: 54, atomicMass: 95.96 },
+                { atomicNumber: 43, symbol: "Tc", name: "Technetium", electrons: 43, protons: 43, neutrons: 55, atomicMass: 98 },
+                { atomicNumber: 44, symbol: "Ru", name: "Ruthenium", electrons: 44, protons: 44, neutrons: 57, atomicMass: 101.07 },
+                { atomicNumber: 45, symbol: "Rh", name: "Rhodium", electrons: 45, protons: 45, neutrons: 58, atomicMass: 102.9055 },
+                { atomicNumber: 46, symbol: "Pd", name: "Palladium", electrons: 46, protons: 46, neutrons: 60, atomicMass: 106.42 },
+                { atomicNumber: 47, symbol: "Ag", name: "Silver", electrons: 47, protons: 47, neutrons: 61, atomicMass: 107.8682 },
+                { atomicNumber: 48, symbol: "Cd", name: "Cadmium", electrons: 48, protons: 48, neutrons: 64, atomicMass: 112.414 },
+                { atomicNumber: 49, symbol: "In", name: "Indium", electrons: 49, protons: 49, neutrons: 66, atomicMass: 114.818 },
+                { atomicNumber: 50, symbol: "Sn", name: "Tin", electrons: 50, protons: 50, neutrons: 70, atomicMass: 118.71 },
+                { atomicNumber: 51, symbol: "Sb", name: "Antimony", electrons: 51, protons: 51, neutrons: 71, atomicMass: 121.76 },
+                { atomicNumber: 52, symbol: "Te", name: "Tellurium", electrons: 52, protons: 52, neutrons: 76, atomicMass: 127.6 },
+                { atomicNumber: 53, symbol: "I", name: "Iodine", electrons: 53, protons: 53, neutrons: 74, atomicMass: 126.90447 },
+                { atomicNumber: 54, symbol: "Xe", name: "Xenon", electrons: 54, protons: 54, neutrons: 77, atomicMass: 131.293 },
+                { atomicNumber: 55, symbol: "Cs", name: "Caesium", electrons: 55, protons: 55, neutrons: 78, atomicMass: 132.90545196 },
+                { atomicNumber: 56, symbol: "Ba", name: "Barium", electrons: 56, protons: 56, neutrons: 81, atomicMass: 137.327 },
+                { atomicNumber: 57, symbol: "La", name: "Lanthanum", electrons: 57, protons: 57, neutrons: 82, atomicMass: 138.904 },
+                { atomicNumber: 58, symbol: "Ce", name: "Cerium", electrons: 58, protons: 58, neutrons: 82, atomicMass: 140.116 },
+                { atomicNumber: 59, symbol: "Pr", name: "Praseodymium", electrons: 59, protons: 59, neutrons: 83, atomicMass: 140.90766 },
+                { atomicNumber: 60, symbol: "Nd", name: "Neodymium", electrons: 60, protons: 60, neutrons: 84, atomicMass: 144.242 },
+                { atomicNumber: 61, symbol: "Pm", name: "Promethium", electrons: 61, protons: 61, neutrons: 85, atomicMass: 145 },
+                { atomicNumber: 62, symbol: "Sm", name: "Samarium", electrons: 62, protons: 62, neutrons: 88, atomicMass: 150.36 },
+                { atomicNumber: 63, symbol: "Eu", name: "Europium", electrons: 63, protons: 63, neutrons: 89, atomicMass: 152 },
+                { atomicNumber: 64, symbol: "Gd", name: "Gadolinium", electrons: 64, protons: 64, neutrons: 93, atomicMass: 157.25 },
+                { atomicNumber: 65, symbol: "Tb", name: "Terbium", electrons: 65, protons: 65, neutrons: 94, atomicMass: 158.92535 },
+                { atomicNumber: 66, symbol: "Dy", name: "Dysprosium", electrons: 66, protons: 66, neutrons: 97, atomicMass: 162.5 },
+                { atomicNumber: 67, symbol: "Ho", name: "Holmium", electrons: 67, protons: 67, neutrons: 98, atomicMass: 164.93033 },
+                { atomicNumber: 68, symbol: "Er", name: "Erbium", electrons: 68, protons: 68, neutrons: 99, atomicMass: 167.259 },
+                { atomicNumber: 69, symbol: "Tm", name: "Thulium", electrons: 69, protons: 69, neutrons: 100, atomicMass: 168.93422 },
+                { atomicNumber: 70, symbol: "Yb", name: "Ytterbium", electrons: 70, protons: 70, neutrons: 103, atomicMass: 173.045 },
+                { atomicNumber: 71, symbol: "Lu", name: "Lutetium", electrons: 71, protons: 71, neutrons: 104, atomicMass: 175.003 },
+                { atomicNumber: 72, symbol: "Hf", name: "Hofnium", electrons: 72, protons: 72, neutrons: 106, atomicMass: 178.49 },
+                { atomicNumber: 73, symbol: "Ta", name: "Tantalum", electrons: 73, protons: 73, neutrons: 108, atomicMass: 180.94788 },
+                { atomicNumber: 74, symbol: "W", name: "Tungsten", electrons: 74, protons: 74, neutrons: 110, atomicMass: 183.84 },
+                { atomicNumber: 75, symbol: "Re", name: "Rhenium", electrons: 75, protons: 75, neutrons: 111, atomicMass: 186.207 },
+                { atomicNumber: 76, symbol: "Os", name: "Osmium", electrons: 76, protons: 76, neutrons: 114, atomicMass: 190.23 },
+                { atomicNumber: 77, symbol: "Ir", name: "Iridium", electrons: 77, protons: 77, neutrons: 115, atomicMass: 192.217 },
+                { atomicNumber: 78, symbol: "Pt", name: "Platinum", electrons: 78, protons: 78, neutrons: 117, atomicMass: 195.084 },
+                { atomicNumber: 79, symbol: "Au", name: "Gold", electrons: 79, protons: 79, neutrons: 117, atomicMass: 196.96657 },
+                { atomicNumber: 80, symbol: "Hg", name: "Mercury", electrons: 80, protons: 80, neutrons: 121, atomicMass: 200.592 },
+                { atomicNumber: 81, symbol: "Tl", name: "Thallium", electrons: 81, protons: 81, neutrons: 123, atomicMass: 204.383 },
+                { atomicNumber: 82, symbol: "Pb", name: "Lead", electrons: 82, protons: 82, neutrons: 125, atomicMass: 207.2 },
+                { atomicNumber: 83, symbol: "Bi", name: "Bismuth", electrons: 83, protons: 83, neutrons: 125, atomicMass: 208.9804 },
+                { atomicNumber: 84, symbol: "Po", name: "Polonium", electrons: 84, protons: 84, neutrons: 125, atomicMass: 209 },
+                { atomicNumber: 85, symbol: "At", name: "Astatine", electrons: 85, protons: 85, neutrons: 125, atomicMass: 210 },
+                { atomicNumber: 86, symbol: "Rn", name: "Radon", electrons: 86, protons: 86, neutrons: 136, atomicMass: 222 },
+                { atomicNumber: 87, symbol: "Fr", name: "Francium", electrons: 87, protons: 87, neutrons: 136, atomicMass: 223 },
+                { atomicNumber: 88, symbol: "Ra", name: "Radium", electrons: 88, protons: 88, neutrons: 138, atomicMass: 226 },
+                { atomicNumber: 89, symbol: "Ac", name: "Actinium", electrons: 89, protons: 89, neutrons: 138, atomicMass: 227 },
+                { atomicNumber: 90, symbol: "Th", name: "Thorium", electrons: 90, protons: 90, neutrons: 142, atomicMass: 232.0377 },
+                { atomicNumber: 91, symbol: "Pa", name: "Protactinium", electrons: 91, protons: 91, neutrons: 140, atomicMass: 231.03588 },
+                { atomicNumber: 92, symbol: "U", name: "Uranium", electrons: 92, protons: 92, neutrons: 146, atomicMass: 238.02891 },
+                { atomicNumber: 93, symbol: "Np", name: "Neptunium", electrons: 93, protons: 93, neutrons: 144, atomicMass: 237 },
+                { atomicNumber: 94, symbol: "Pu", name: "Plutonium", electrons: 94, protons: 94, neutrons: 150, atomicMass: 244 },
+                { atomicNumber: 95, symbol: "Am", name: "Americium", electrons: 95, protons: 95, neutrons: 148, atomicMass: 243 },
+                { atomicNumber: 96, symbol: "Cm", name: "Curium", electrons: 96, protons: 96, neutrons: 151, atomicMass: 247 },
+                { atomicNumber: 97, symbol: "Bk", name: "Berkelium", electrons: 97, protons: 97, neutrons: 150, atomicMass: 247 },
+                { atomicNumber: 98, symbol: "Cf", name: "Californium", electrons: 98, protons: 98, neutrons: 153, atomicMass: 251 },
+                { atomicNumber: 99, symbol: "Es", name: "Einsteinium", electrons: 99, protons: 99, neutrons: 153, atomicMass: 252 },
+                { atomicNumber: 100, symbol: "Fm", name: "Fermium", electrons: 100, protons: 100, neutrons: 157, atomicMass: 257 },
+                { atomicNumber: 101, symbol: "Md", name: "Mendelevium", electrons: 101, protons: 101, neutrons: 157, atomicMass: 258 },
+                { atomicNumber: 102, symbol: "No", name: "Nobelium", electrons: 102, protons: 102, neutrons: 157, atomicMass: 259 },
+                { atomicNumber: 103, symbol: "Lr", name: "Lawrencium", electrons: 103, protons: 103, neutrons: 159, atomicMass: 262 },
+                { atomicNumber: 104, symbol: "Rf", name: "Rutherfordium", electrons: 104, protons: 104, neutrons: 163, atomicMass: 267 },
+                { atomicNumber: 105, symbol: "Db", name: "Dubnium", electrons: 105, protons: 105, neutrons: 165, atomicMass: 270 },
+                { atomicNumber: 106, symbol: "Sg", name: "Seaborgium", electrons: 106, protons: 106, neutrons: 165, atomicMass: 271 },
+                { atomicNumber: 107, symbol: "Bh", name: "Bohrium", electrons: 107, protons: 107, neutrons: 163, atomicMass: 270 },
+                { atomicNumber: 108, symbol: "Hs", name: "Hassium", electrons: 108, protons: 108, neutrons: 169, atomicMass: 277 },
+                { atomicNumber: 109, symbol: "Mt", name: "Meitnerium", electrons: 109, protons: 109, neutrons: 169, atomicMass: 278 },
+                { atomicNumber: 110, symbol: "Ds", name: "Darmstadtium", electrons: 110, protons: 110, neutrons: 171, atomicMass: 281 },
+                { atomicNumber: 111, symbol: "Rg", name: "Roentgenium", electrons: 111, protons: 111, neutrons: 171, atomicMass: 282 },
+                { atomicNumber: 112, symbol: "Cn", name: "Copernicium", electrons: 112, protons: 112, neutrons: 173, atomicMass: 285 },
+                { atomicNumber: 113, symbol: "Nh", name: "Nihonium", electrons: 113, protons: 113, neutrons: 173, atomicMass: 286 },
+                { atomicNumber: 114, symbol: "Fl", name: "Flerovium", electrons: 114, protons: 114, neutrons: 175, atomicMass: 289 },
+                { atomicNumber: 115, symbol: "Mc", name: "Moscovium", electrons: 115, protons: 115, neutrons: 175, atomicMass: 290 },
+                { atomicNumber: 116, symbol: "Lv", name: "Livermorium", electrons: 116, protons: 116, neutrons: 177, atomicMass: 293 },
+                { atomicNumber: 117, symbol: "Ts", name: "Tennessine", electrons: 117, protons: 117, neutrons: 177, atomicMass: 294 },
+                { atomicNumber: 118, symbol: "Og", name: "Oganesson", electrons: 118, protons: 118, neutrons: 176, atomicMass: 294 },
+            ];
+
+            // Find the element information based on the atomic number
+            const elementInfo = elements.find(element => element.atomicNumber === atomicNumber);
+
+            if (elementInfo) {
+                elementSymbolSpan.textContent = elementInfo.symbol;
+                elementNameSpan.textContent = elementInfo.name;
+                numElectronsSpan.textContent = elementInfo.electrons;
+                numProtonsSpan.textContent = elementInfo.protons;
+                numNeutronsSpan.textContent = elementInfo.neutrons;
+                atomicMassSpan.textContent = elementInfo.atomicMass.toFixed(3);
+
+                // Remove previous electron elements (if any)
+                atom.innerHTML = "";
+
+                // Function to add electrons to the shells
+                function addElectronToShell(shell, maxElectrons) {
+                    for (let i = 0; i < maxElectrons; i++) {
+                        const electron = document.createElement("div");
+                        electron.className = "electron";
+                        const angle = (360 / maxElectrons) * i;
+                        const radius = 45 + (shell - 1) * 30;
+                        electron.style.transform = `rotate(${angle}deg) translateX(${radius}px)`;
+                        atom.appendChild(electron);
+                    }
+                }
+
+                // Distribute electrons across shells
+                let remainingElectrons = elementInfo.electrons;
+                for (let shell = 1; shell <= 5; shell++) {
+                    const maxElectronsInShell = shell === 1 ? 2 : 8;
+                    if (remainingElectrons === 0) {
+                        break;
+                    }
+                    const electronsInThisShell = Math.min(remainingElectrons, maxElectronsInShell);
+                    addElectronToShell(shell, electronsInThisShell);
+                    remainingElectrons -= electronsInThisShell;
+                }
+            } else {
+                elementSymbolSpan.textContent = "N/A";
+                elementNameSpan.textContent = "Element not found";
+                numElectronsSpan.textContent = "";
+                numProtonsSpan.textContent = "";
+                numNeutronsSpan.textContent = "";
+                atomicMassSpan.textContent = "";
+                atom.innerHTML = ""; // Remove electrons if the element is not found
+                modelLink.innerHTML ="file:///C:/Users/HARI/OneDrive/Desktop/atomic%20model/Body.html"
+            }
+        }
+
+    </script>
+</body>
+</html>
